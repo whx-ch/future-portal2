@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>未来科技传送页面</title>
+  <style>
+    /* ======================== 基本样式 ======================== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background: #000;
+    }
+
+    /* ======================== 背景 ======================== */
+    .background {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://images.unsplash.com/photo-1523987355523-c7b5b7b3c29a?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      background-attachment: fixed;
+      animation: backgroundMove 10s infinite linear;
+      z-index: -3;
+    }
+    @keyframes backgroundMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* ======================== 光线与星空 ======================== */
+    .light-glow {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 30%, rgba(255,255,255,0) 70%);
+      animation: lightMove 4s ease-in-out infinite;
+      opacity: 0.3; z-index: -2;
+    }
+    @keyframes lightMove {
+      0% { transform: rotate(0deg); opacity: 0.3; }
+      50% { transform: rotate(180deg); opacity: 0.4; }
+      100% { transform: rotate(360deg); opacity: 0.3; }
+    }
+
+    .stars {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -2; pointer-events: none; overflow: hidden;
+    }
+    .star {
+      position: absolute; width: 2px; height: 2px;
+      border-radius: 50%; background-color: white;
+      animation: twinkle 2s infinite ease-in-out;
+      opacity: 0.8;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+
+    /* ======================== 银河与光晕 ======================== */
+    .galaxy {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, rgba(0,204,255,0.5) 50%, rgba(0,0,0,0) 70%);
+      pointer-events: none; z-index: -1;
+      animation: galaxyMove 30s infinite linear;
+    }
+    @keyframes galaxyMove {
+      0% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(180deg); }
+      100% { transform: scale(1) rotate(360deg); }
+    }
+
+    .halo {
+      position: absolute; top: 50%; left: 50%;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      clip-path: polygon(50% 0%,61% 20%,74% 20%,83% 35%,93% 50%,83% 65%,74% 80%,61% 80%,50% 100%,39% 80%,26% 80%,17% 65%,7% 50%,17% 35%,26% 20%,39% 20%);
+      animation: haloPulse 2s infinite alternate;
+      transform: translate(-50%, -50%);
+    }
+    @keyframes haloPulse {
+      0% { width: 280px; height: 280px; opacity: 0.6; }
+      50% { width: 320px; height: 320px; opacity: 0.8; }
+      100% { width: 280px; height: 280px; opacity: 0.6; }
+    }
+
+    /* ======================== 容器与文本 ======================== */
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px 50px;
+      border-radius: 20px;
+      box-shadow: 0 4px 50px rgba(255,255,255,0.3);
+      text-align: center;
+      width: 80%; max-width: 500px;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 2s ease-out;
+      z-index: 10;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #00c4ff;
+      text-shadow: 0 0 15px rgba(0,204,255,0.8), 0 0 30px rgba(0,204,255,0.6);
+    }
+
+    .button {
+      background-color: #00c4ff;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0,204,255,0.4);
+    }
+    .button:hover {
+      background-color: #ff9800;
+      transform: scale(1.1);
+      box-shadow: 0 20px 30px rgba(255,152,0,0.7);
+    }
+    .button:active {
+      transform: scale(0.95);
+      box-shadow: 0 5px 15px rgba(255,152,0,0.6);
+    }
+
+    #status {
+      font-size: 1.1rem;
+      margin-top: 20px;
+      color: #ffcc00;
+    }
+
+    /* ======================== 动态特效 ======================== */
+    .meteor {
+      position: absolute;
+      width: 4px; height: 10px;
+      background: linear-gradient(45deg, rgba(255,255,255,1), rgba(255,165,0,1));
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: meteorAnimation 1.5s infinite linear;
+    }
+    @keyframes meteorAnimation {
+      0% { transform: translateX(-100%) translateY(0); opacity: 0.9; }
+      100% { transform: translateX(100vw) translateY(50vh); opacity: 0.1; }
+    }
+
+    .laser {
+      position: absolute; top: 50%; left: 50%;
+      width: 2px; height: 100%;
+      background: rgba(0,204,255,0.8);
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+      animation: laserAnimation 3s infinite linear;
+    }
+    @keyframes laserAnimation {
+      0% { height: 10%; opacity: 0.3; }
+      50% { height: 80%; opacity: 0.7; }
+      100% { height: 10%; opacity: 0.3; }
+    }
+
+    /* ======================== 传送动画 ======================== */
+    .teleport-overlay {
+      position: fixed;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: radial-gradient(circle, rgba(0,204,255,0.8) 0%, rgba(0,0,0,0.9) 80%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .teleport-active {
+      animation: teleportExpand 3s ease-out forwards;
+    }
+    @keyframes teleportExpand {
+      0% { width: 0; height: 0; opacity: 0.7; }
+      50% { width: 200vmax; height: 200vmax; opacity: 1; }
+      100% { width: 200vmax; height: 200vmax; opacity: 0; background: #000; }
+    }
+
+    .teleport-text {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #00c4ff;
+      font-size: 2rem;
+      text-shadow: 0 0 20px #00c4ff;
+      opacity: 0;
+      z-index: 1000;
+      animation: teleportText 3s ease-out forwards;
+    }
+    @keyframes teleportText {
+      0% { opacity: 0; transform: translate(-50%, -40%); }
+      30% { opacity: 1; transform: translate(-50%, -50%); }
+      70% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, -60%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="light-glow"></div>
+  <div class="stars"></div>
+  <div class="galaxy"></div>
+  <div class="halo"></div>
+
+  <div class="container">
+    <h1>准备好进入未来世界了吗？</h1>
+    <button class="button" onclick="startTeleport()">确认</button>
+    <p id="status">正在记录 IP……</p>
+  </div>
+
+  <div class="teleport-overlay"></div>
+  <div class="teleport-text" id="teleport-text">传送启动中...</div>
+
+  <script>
+    // 🌟 星星生成
+    const starsContainer = document.querySelector('.stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.animationDelay = `${Math.random() * 2}s`;
+      starsContainer.appendChild(star);
+    }
+
+    // 💫 流星 & 激光
+    function createMeteor() {
+      const meteor = document.createElement('div');
+      meteor.classList.add('meteor');
+      meteor.style.left = `${Math.random() * 100}vw`;
+      meteor.style.top = `${Math.random() * 100}vh`;
+      document.body.appendChild(meteor);
+      setTimeout(() => meteor.remove(), 1500);
+    }
+    function createLaser() {
+      const laser = document.createElement('div');
+      laser.classList.add('laser');
+      laser.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(laser);
+      setTimeout(() => laser.remove(), 3000);
+    }
+    setInterval(createMeteor, 2000);
+    setInterval(createLaser, 4000);
+
+    // 🌐 获取 IP
+    async function logVisit() {
+      const status = document.getElementById('status');
+      try {
+        const resp = await fetch('https://api.ipify.org?format=json');
+        const data = await resp.json();
+        status.textContent = 'IP 已记录：' + data.ip;
+      } catch (e) {
+        status.textContent = '无法获取 IP：' + e.message;
+      }
+    }
+    logVisit();
+
+    // 🚀 传送动画
+    function startTeleport() {
+      const overlay = document.querySelector('.teleport-overlay');
+      const text = document.getElementById('teleport-text');
+
+      overlay.classList.add('teleport-active');
+      text.style.display = 'block';
+
+      setTimeout(() => {
+        text.textContent = '穿越中...';
+      }, 1500);
+
+      setTimeout(() => {
+        text.textContent = '传送完成 ✅';
+      }, 2800);
+
+      // 可自定义跳转
+      setTimeout(() => {
+        window.location.href = 'https://example.com'; // 修改为你的目标页面
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
